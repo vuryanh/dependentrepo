@@ -1,0 +1,20 @@
+name: Auto Merge Version Updates
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+
+jobs:
+  auto_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable Auto-Merge
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Use PAT instead of GITHUB_TOKEN
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
